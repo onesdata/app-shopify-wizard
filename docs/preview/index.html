@@ -819,6 +819,10 @@
         <span class="nav-item-icon">🔗</span>
         <span>Deep Links</span>
       </button>
+      <button class="nav-item" data-screen="guide" onclick="showScreen('guide')">
+        <span class="nav-item-icon">📖</span>
+        <span>Guía</span>
+      </button>
     </nav>
   </aside>
 
@@ -1557,6 +1561,103 @@
           <div class="form-group">
             <label class="form-label">Android Package</label>
             <input type="text" class="form-input" value="com.mycompany.myapp">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="screen-guide" class="page screen hidden">
+      <div style="margin-bottom: 20px">
+        <button class="configure-link" onclick="showScreen('dashboard')">← Dashboard</button>
+      </div>
+      <div class="card">
+        <div class="header-card">
+          <div>
+            <h1 class="header-title">📖 Guía de Campos</h1>
+            <p class="header-subtitle">Referencia de todos los metaobjects y sus campos</p>
+          </div>
+          <span class="badge badge-success">17 metaobjects</span>
+        </div>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px;">
+        <div class="card" style="text-align: center; padding: 20px;">
+          <div style="font-size: 32px; font-weight: 700; color: var(--text);">17</div>
+          <div style="font-size: 12px; color: var(--text-muted); text-transform: uppercase;">Metaobjects</div>
+        </div>
+        <div class="card" style="text-align: center; padding: 20px;">
+          <div style="font-size: 32px; font-weight: 700; color: var(--text);">89</div>
+          <div style="font-size: 12px; color: var(--text-muted); text-transform: uppercase;">Campos</div>
+        </div>
+        <div class="card" style="text-align: center; padding: 20px;">
+          <div style="font-size: 32px; font-weight: 700; color: var(--text);">11</div>
+          <div style="font-size: 12px; color: var(--text-muted); text-transform: uppercase;">Secciones</div>
+        </div>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;">
+        <div class="card" style="padding: 16px;">
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+            <span style="font-size: 20px;">🏠</span>
+            <div>
+              <h3 style="font-size: 14px; font-weight: 600; margin: 0;">Home Banner</h3>
+              <code style="font-size: 11px; color: var(--text-muted);">home_banner</code>
+            </div>
+          </div>
+          <table style="width: 100%; font-size: 12px; border-collapse: collapse;">
+            <tr style="background: var(--bg);"><th style="padding: 8px; text-align: left;">Campo</th><th style="padding: 8px;">Tipo</th></tr>
+            <tr><td style="padding: 8px;">Título</td><td style="padding: 8px; font-family: monospace; font-size: 10px;">text</td></tr>
+            <tr><td style="padding: 8px;">Subtítulo</td><td style="padding: 8px; font-family: monospace; font-size: 10px;">text</td></tr>
+            <tr><td style="padding: 8px;">Imagen</td><td style="padding: 8px; font-family: monospace; font-size: 10px;">file</td></tr>
+          </table>
+        </div>
+        <div class="card" style="padding: 16px;">
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+            <span style="font-size: 20px;">💳</span>
+            <div>
+              <h3 style="font-size: 14px; font-weight: 600; margin: 0;">Payment Config</h3>
+              <code style="font-size: 11px; color: var(--text-muted);">payment_config</code>
+            </div>
+          </div>
+          <table style="width: 100%; font-size: 12px; border-collapse: collapse;">
+            <tr style="background: var(--bg);"><th style="padding: 8px; text-align: left;">Campo</th><th style="padding: 8px;">Tipo</th></tr>
+            <tr><td style="padding: 8px;">Apple Pay</td><td style="padding: 8px; font-family: monospace; font-size: 10px;">boolean</td></tr>
+            <tr><td style="padding: 8px;">Google Pay</td><td style="padding: 8px; font-family: monospace; font-size: 10px;">boolean</td></tr>
+            <tr><td style="padding: 8px;">PayPal</td><td style="padding: 8px; font-family: monospace; font-size: 10px;">boolean</td></tr>
+          </table>
+        </div>
+        <div class="card" style="padding: 16px;">
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+            <span style="font-size: 20px;">📦</span>
+            <div>
+              <h3 style="font-size: 14px; font-weight: 600; margin: 0;">Shipping Config</h3>
+              <code style="font-size: 11px; color: var(--text-muted);">shipping_config</code>
+            </div>
+          </div>
+          <table style="width: 100%; font-size: 12px; border-collapse: collapse;">
+            <tr style="background: var(--bg);"><th style="padding: 8px; text-align: left;">Campo</th><th style="padding: 8px;">Tipo</th></tr>
+            <tr><td style="padding: 8px;">Envío gratis</td><td style="padding: 8px; font-family: monospace; font-size: 10px;">decimal</td></tr>
+            <tr><td style="padding: 8px;">Días estándar</td><td style="padding: 8px; font-family: monospace; font-size: 10px;">int</td></tr>
+            <tr><td style="padding: 8px;">Días express</td><td style="padding: 8px; font-family: monospace; font-size: 10px;">int</td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="card" style="margin-top: 16px;">
+        <h3 style="font-size: 14px; font-weight: 600; margin: 0 0 12px;">Tipos de Campo</h3>
+        <div style="display: flex; gap: 24px; flex-wrap: wrap;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 12px; font-weight: 500;">Texto:</span>
+            <code style="font-size: 11px; background: var(--bg); padding: 4px 8px; border-radius: 4px;">text, multitext, rich</code>
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 12px; font-weight: 500;">Números:</span>
+            <code style="font-size: 11px; background: var(--bg); padding: 4px 8px; border-radius: 4px;">int, decimal</code>
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 12px; font-weight: 500;">Referencias:</span>
+            <code style="font-size: 11px; background: var(--bg); padding: 4px 8px; border-radius: 4px;">collection, product, file</code>
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 12px; font-weight: 500;">Otros:</span>
+            <code style="font-size: 11px; background: var(--bg); padding: 4px 8px; border-radius: 4px;">boolean, date, url, json</code>
           </div>
         </div>
       </div>
