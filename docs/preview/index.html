@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Preview - Shopify Setup Wizard</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-primary: #1a1a1a;
+      --bg-secondary: #242424;
+      --bg-tertiary: #2a2a2a;
+      --text-primary: #ffffff;
+      --text-secondary: #888888;
+      --text-muted: #666666;
+      --border: #333333;
+      --accent: #4a9eff;
+      --success: #4caf50;
+      --warning: #ff9800;
+      --error: #f44336;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 260px;
+      background: var(--bg-secondary);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    .sidebar-header {
+      padding: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .sidebar-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .sidebar-subtitle {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    .state-selector {
+      padding: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .state-selector label {
+      display: block;
+      font-size: 11px;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .state-buttons {
+      display: flex;
+      gap: 6px;
+    }
+
+    .state-btn {
+      flex: 1;
+      padding: 8px 4px;
+      border: 1px solid var(--border);
+      background: var(--bg-tertiary);
+      color: var(--text-secondary);
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 11px;
+      transition: all 0.2s;
+    }
+
+    .state-btn:hover {
+      border-color: var(--accent);
+      color: var(--text-primary);
+    }
+
+    .state-btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: white;
+    }
+
+    .nav-section {
+      padding: 12px;
+    }
+
+    .nav-section-title {
+      font-size: 11px;
+      color: var(--text-muted);
+      padding: 8px 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.15s;
+      color: var(--text-secondary);
+      font-size: 14px;
+    }
+
+    .nav-item:hover {
+      background: var(--bg-tertiary);
+      color: var(--text-primary);
+    }
+
+    .nav-item.active {
+      background: var(--accent);
+      color: white;
+    }
+
+    .nav-item-icon {
+      font-size: 18px;
+      width: 24px;
+      text-align: center;
+    }
+
+    /* Main Content */
+    .main {
+      flex: 1;
+      margin-left: 260px;
+      padding: 32px;
+      overflow-y: auto;
+    }
+
+    .page {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .page-header {
+      margin-bottom: 24px;
+    }
+
+    .page-title {
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .page-desc {
+      color: var(--text-secondary);
+      font-size: 14px;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+
+    .card-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .card-desc {
+      color: var(--text-secondary);
+      font-size: 13px;
+    }
+
+    /* Badges */
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .badge-success { background: rgba(76, 175, 80, 0.2); color: #4caf50; }
+    .badge-warning { background: rgba(255, 152, 0, 0.2); color: #ff9800; }
+    .badge-pending { background: rgba(136, 136, 136, 0.2); color: #888; }
+
+    /* Buttons */
+    .btn {
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #3a8eef;
+    }
+
+    .btn-secondary {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent);
+    }
+
+    .btn-success {
+      background: var(--success);
+      color: white;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--text-primary);
+      color: var(--text-primary);
+    }
+
+    /* Forms */
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 10px 14px;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text-primary);
+      font-size: 14px;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    /* List Items */
+    .list-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px;
+      background: var(--bg-tertiary);
+      border-radius: 8px;
+      margin-bottom: 8px;
+    }
+
+    .list-item-icon {
+      font-size: 24px;
+    }
+
+    .list-item-content {
+      flex: 1;
+    }
+
+    .list-item-title {
+      font-weight: 500;
+      margin-bottom: 2px;
+    }
+
+    .list-item-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    /* Progress Bar */
+    .progress-bar {
+      height: 8px;
+      background: var(--bg-tertiary);
+      border-radius: 4px;
+      overflow: hidden;
+      margin: 16px 0;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--success);
+      border-radius: 4px;
+      transition: width 0.3s;
+    }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+    }
+
+    .empty-state-icon {
+      font-size: 64px;
+      margin-bottom: 16px;
+      opacity: 0.5;
+    }
+
+    .empty-state-title {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .empty-state-desc {
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s;
+      z-index: 1000;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .toast-icon {
+      font-size: 20px;
+    }
+
+    .toast-message {
+      font-size: 14px;
+    }
+
+    /* Section Tags */
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      background: rgba(76, 175, 80, 0.15);
+      color: #4caf50;
+      border-radius: 4px;
+      font-size: 12px;
+    }
+
+    .tag.pending {
+      background: rgba(136, 136, 136, 0.15);
+      color: #888;
+    }
+
+    /* Accordion */
+    .accordion-item {
+      background: var(--bg-tertiary);
+      border-radius: 8px;
+      margin-bottom: 8px;
+      overflow: hidden;
+    }
+
+    .accordion-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .accordion-header:hover {
+      background: rgba(255,255,255,0.03);
+    }
+
+    .accordion-icon {
+      font-size: 24px;
+    }
+
+    .accordion-content-area {
+      flex: 1;
+    }
+
+    .accordion-title {
+      font-weight: 500;
+      margin-bottom: 2px;
+    }
+
+    .accordion-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .accordion-chevron {
+      color: var(--text-muted);
+      transition: transform 0.2s;
+    }
+
+    .accordion-item.open .accordion-chevron {
+      transform: rotate(180deg);
+    }
+
+    .accordion-body {
+      padding: 0 16px 16px;
+      display: none;
+    }
+
+    .accordion-item.open .accordion-body {
+      display: block;
+    }
+
+    /* Back link */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Dashboard specific */
+    .dashboard-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .stat-card {
+      background: var(--bg-tertiary);
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 36px;
+      font-weight: 700;
+    }
+
+    .stat-value.success { color: var(--success); }
+    .stat-value.warning { color: var(--warning); }
+    .stat-value.muted { color: var(--text-muted); }
+
+    .stat-label {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    .sections-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .section-card {
+      background: var(--bg-tertiary);
+      border-radius: 8px;
+      padding: 16px;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 1px solid transparent;
+    }
+
+    .section-card:hover {
+      border-color: var(--accent);
+    }
+
+    .section-card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .section-card-icon {
+      font-size: 24px;
+    }
+
+    .section-card-title {
+      font-weight: 500;
+      font-size: 14px;
+    }
+
+    .section-card-desc {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-title">Setup Wizard</div>
+      <div class="sidebar-subtitle">Preview Mode</div>
+    </div>
+
+    <div class="state-selector">
+      <label>Estado de datos</label>
+      <div class="state-buttons">
+        <button class="state-btn" data-state="empty" onclick="setState('empty')">Pendiente</button>
+        <button class="state-btn" data-state="no-data" onclick="setState('no-data')">Sin datos</button>
+        <button class="state-btn active" data-state="configured" onclick="setState('configured')">Configurado</button>
+      </div>
+    </div>
+
+    <nav class="nav-section">
+      <div class="nav-section-title">Navegación</div>
+      <div class="nav-item active" data-screen="dashboard" onclick="showScreen('dashboard')">
+        <span class="nav-item-icon">📊</span>
+        <span>Dashboard</span>
+      </div>
+      <div class="nav-item" data-screen="home-setup" onclick="showScreen('home-setup')">
+        <span class="nav-item-icon">🏠</span>
+        <span>Home Setup</span>
+      </div>
+      <div class="nav-item" data-screen="content" onclick="showScreen('content')">
+        <span class="nav-item-icon">📝</span>
+        <span>Contenido</span>
+      </div>
+      <div class="nav-item" data-screen="payments" onclick="showScreen('payments')">
+        <span class="nav-item-icon">💳</span>
+        <span>Pagos</span>
+      </div>
+      <div class="nav-item" data-screen="shipping" onclick="showScreen('shipping')">
+        <span class="nav-item-icon">🚚</span>
+        <span>Envíos</span>
+      </div>
+      <div class="nav-item" data-screen="stores" onclick="showScreen('stores')">
+        <span class="nav-item-icon">🏪</span>
+        <span>Tiendas</span>
+      </div>
+      <div class="nav-item" data-screen="legal" onclick="showScreen('legal')">
+        <span class="nav-item-icon">⚖️</span>
+        <span>Legal</span>
+      </div>
+      <div class="nav-item" data-screen="reviews" onclick="showScreen('reviews')">
+        <span class="nav-item-icon">⭐</span>
+        <span>Reviews</span>
+      </div>
+      <div class="nav-item" data-screen="favorites" onclick="showScreen('favorites')">
+        <span class="nav-item-icon">❤️</span>
+        <span>Favoritos</span>
+      </div>
+      <div class="nav-item" data-screen="newsletter" onclick="showScreen('newsletter')">
+        <span class="nav-item-icon">📧</span>
+        <span>Newsletter</span>
+      </div>
+      <div class="nav-item" data-screen="notifications" onclick="showScreen('notifications')">
+        <span class="nav-item-icon">🔔</span>
+        <span>Notificaciones</span>
+      </div>
+      <div class="nav-item" data-screen="deep-links" onclick="showScreen('deep-links')">
+        <span class="nav-item-icon">🔗</span>
+        <span>Deep Links</span>
+      </div>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main">
+    <!-- Dashboard Screen -->
+    <div id="screen-dashboard" class="page screen">
+      <div class="page-header">
+        <h1 class="page-title">Dashboard</h1>
+        <p class="page-desc">Progreso de configuración de tu tienda</p>
+      </div>
+
+      <div class="dashboard-stats">
+        <div class="stat-card">
+          <div class="stat-value success" id="stat-complete">8</div>
+          <div class="stat-label">Completados</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value warning" id="stat-partial">2</div>
+          <div class="stat-label">Sin datos</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value muted" id="stat-pending">3</div>
+          <div class="stat-label">Pendientes</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h3 class="card-title">Progreso General</h3>
+            <p class="card-desc">61% completado</p>
+          </div>
+          <span class="badge badge-warning">En progreso</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 61%"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 class="card-title" style="margin-bottom: 16px">Secciones</h3>
+        <div class="sections-grid" id="dashboard-sections">
+          <!-- Generated by JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Home Setup Screen -->
+    <div id="screen-home-setup" class="page screen hidden">
+      <a href="#" class="back-link" onclick="showScreen('dashboard'); return false;">← Volver al Dashboard</a>
+      <div class="page-header">
+        <h1 class="page-title">🏠 Home Setup</h1>
+        <p class="page-desc">Configuración de la pantalla principal</p>
+      </div>
+
+      <div id="home-setup-empty" class="card empty-content">
+        <div class="empty-state">
+          <div class="empty-state-icon">🏠</div>
+          <h3 class="empty-state-title">Configuración no creada</h3>
+          <p class="empty-state-desc">Crea la definición para configurar el home de la app</p>
+          <button class="btn btn-primary" onclick="showDemoToast('Crear definición')">Crear Definición</button>
+        </div>
+      </div>
+
+      <div id="home-setup-no-data" class="card no-data-content hidden">
+        <div class="empty-state">
+          <div class="empty-state-icon">📋</div>
+          <h3 class="empty-state-title">Sin configuración</h3>
+          <p class="empty-state-desc">La definición existe pero no hay datos configurados</p>
+          <button class="btn btn-primary" onclick="showDemoToast('Crear plantilla')">Crear Plantilla</button>
+        </div>
+      </div>
+
+      <div id="home-setup-configured" class="card configured-content hidden">
+        <div class="card-header">
+          <div>
+            <h3 class="card-title">Home Banner</h3>
+            <p class="card-desc">Banner principal de la app</p>
+          </div>
+          <span class="badge badge-success">Configurado</span>
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Título</label>
+            <input type="text" class="form-input" value="¡Bienvenido a nuestra tienda!" readonly>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Subtítulo</label>
+            <input type="text" class="form-input" value="Descubre las mejores ofertas" readonly>
+          </div>
+        </div>
+        <div style="display: flex; gap: 12px; margin-top: 16px">
+          <button class="btn btn-primary" onclick="showDemoToast('Guardar cambios')">Guardar</button>
+          <button class="btn btn-outline" onclick="showShopifyToast()">Abrir en Shopify</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content Screen -->
+    <div id="screen-content" class="page screen hidden">
+      <a href="#" class="back-link" onclick="showScreen('dashboard'); return false;">← Volver al Dashboard</a>
+      <div class="page-header">
+        <h1 class="page-title">📝 Contenido</h1>
+        <p class="page-desc">Gestiona el contenido de la aplicación</p>
+      </div>
+
+      <div id="content-empty" class="card empty-content">
+        <div class="empty-state">
+          <div class="empty-state-icon">📝</div>
+          <h3 class="empty-state-title">Sin definiciones de contenido</h3>
+          <p class="empty-state-desc">Crea las definiciones para gestionar FAQs y About</p>
+          <button class="btn btn-primary" onclick="showDemoToast('Crear definiciones')">Crear Definiciones</button>
+        </div>
+      </div>
+
+      <div id="content-no-data" class="no-data-content hidden">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">FAQs</h3>
+              <p class="card-desc">Preguntas frecuentes</p>
+            </div>
+            <span class="badge badge-warning">Sin datos</span>
+          </div>
+          <button class="btn btn-primary" onclick="showDemoToast('Crear FAQ de ejemplo')">Crear Ejemplos</button>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">About</h3>
+              <p class="card-desc">Información sobre la empresa</p>
+            </div>
+            <span class="badge badge-warning">Sin datos</span>
+          </div>
+          <button class="btn btn-primary" onclick="showDemoToast('Crear About')">Configurar</button>
+        </div>
+      </div>
+
+      <div id="content-configured" class="configured-content hidden">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">FAQs</h3>
+              <p class="card-desc">5 preguntas configuradas</p>
+            </div>
+            <span class="badge badge-success">Completo</span>
+          </div>
+          <div class="list-item">
+            <span class="list-item-icon">❓</span>
+            <div class="list-item-content">
+              <div class="list-item-title">¿Cuánto tarda el envío?</div>
+              <div class="list-item-desc">El envío estándar tarda 3-5 días laborables...</div>
+            </div>
+          </div>
+          <div class="list-item">
+            <span class="list-item-icon">❓</span>
+            <div class="list-item-content">
+              <div class="list-item-title">¿Puedo devolver un producto?</div>
+              <div class="list-item-desc">Sí, tienes 30 días para devolver...</div>
+            </div>
+          </div>
+          <button class="btn btn-outline" style="margin-top: 12px" onclick="showShopifyToast()">Ver todas en Shopify</button>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">About</h3>
+              <p class="card-desc">Información de la empresa</p>
+            </div>
+            <span class="badge badge-success">Configurado</span>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Nombre</label>
+            <input type="text" class="form-input" value="Mi Tienda Online" readonly>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Descripción</label>
+            <textarea class="form-input" rows="3" readonly>Somos una tienda especializada en productos de alta calidad...</textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Payments Screen -->
+    <div id="screen-payments" class="page screen hidden">
+      <a href="#" class="back-link" onclick="showScreen('dashboard'); return false;">← Volver al Dashboard</a>
+      <div class="page-header">
+        <h1 class="page-title">💳 Métodos de Pago</h1>
+        <p class="page-desc">Configura los métodos de pago disponibles</p>
+      </div>
+
+      <div id="payments-empty" class="card empty-content">
+        <div class="empty-state">
+          <div class="empty-state-icon">💳</div>
+          <h3 class="empty-state-title">Sin configuración de pagos</h3>
+          <p class="empty-state-desc">Crea la definición para mostrar métodos de pago</p>
+          <button class="btn btn-primary" onclick="showDemoToast('Crear definición')">Crear Definición</button>
+        </div>
+      </div>
+
+      <div id="payments-no-data" class="no-data-content hidden">
+        <div class="card">
+          <div class="empty-state">
+            <div class="empty-state-icon">💳</div>
+            <h3 class="empty-state-title">Añade métodos de pago</h3>
+            <p class="empty-state-desc">Configura los métodos de pago que aceptas</p>
+            <button class="btn btn-primary" onclick="showDemoToast('Crear métodos de ejemplo')">Crear Ejemplos</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="payments-configured" class="configured-content hidden">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">Métodos de Pago</h3>
+              <p class="card-desc">4 métodos configurados</p>
+            </div>
+            <button class="btn btn-secondary" onclick="showDemoToast('Añadir método')">+ Añadir</button>
+          </div>
+          <div class="list-item">
+            <span class="list-item-icon">💳</span>
+            <div class="list-item-content">
+              <div class="list-item-title">Tarjeta de crédito/débito</div>
+              <div class="list-item-desc">Visa, Mastercard, American Express</div>
+            </div>
+            <span class="badge badge-success">Activo</span>
+          </div>
+          <div class="list-item">
+            <span class="list-item-icon">🅿️</span>
+            <div class="list-item-content">
+              <div class="list-item-title">PayPal</div>
+              <div class="list-item-desc">Pago seguro con PayPal</div>
+            </div>
+            <span class="badge badge-success">Activo</span>
+          </div>
+          <div class="list-item">
+            <span class="list-item-icon">🍎</span>
+            <div class="list-item-content">
+              <div class="list-item-title">Apple Pay</div>
+              <div class="list-item-desc">Pago rápido en dispositivos Apple</div>
+            </div>
+            <span class="badge badge-success">Activo</span>
+          </div>
+          <div class="list-item">
+            <span class="list-item-icon">🏦</span>
+            <div class="list-item-content">
+              <div class="list-item-title">Transferencia bancaria</div>
+              <div class="list-item-desc">IBAN: ES12 1234 5678...</div>
+            </div>
+            <span class="badge badge-success">Activo</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Shipping Screen -->
+    <div id="screen-shipping" class="page screen hidden">
+      <a href="#" class="back-link" onclick="showScreen('dashboard'); return false;">← Volver al Dashboard</a>
+      <div class="page-header">
+        <h1 class="page-title">🚚 Envíos</h1>
+        <p class="page-desc">Configura las opciones de envío</p>
+      </div>
+
+      <div id="shipping-empty" class="card empty-content">
+        <div class="empty-state">
+          <div class="empty-state-icon">🚚</div>
+          <h3 class="empty-state-title">Sin configuración de envíos</h3>
+          <p class="empty-state-desc">Crea la definición para mostrar opciones de envío</p>
+          <button class="btn btn-primary" onclick="showDemoToast('Crear definición')">Crear Definición</button>
+        </div>
+      </div>
+
+      <div id="shipping-no-data" class="no-data-content hidden">
+        <div class="card">
+          <div class="empty-state">
+            <div class="empty-state-icon">📦</div>
+            <h3 class="empty-state-title">Configura opciones de envío</h3>
+            <button class="btn btn-primary" onclick="showDemoToast('Crear opciones')">Crear Ejemplos</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="shipping-configured" class="configured-content hidden">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">Opciones de Envío</h3>
+              <p class="card-desc">3 opciones configuradas</p>
+            </div>
+          </div>
+          <div class="list-item">
+            <span class="list-item-icon">📦</span>
+            <div class="list-item-content">
+              <div class="list-item-title">Envío estándar</div>
+              <div class="list-item-desc">3-5 días laborables • 4,99€</div>
+            </div>
+          </div>
+          <div class="list-item">
+            <span class="list-item-icon">🚀</span>
+            <div class="list-item-content">
+              <div class="list-item-title">Envío express</div>
+              <div class="list-item-desc">24-48 horas • 9,99€</div>
+            </div>
+          </div>
+          <div class="list-item">
+            <span class="list-item-icon">🎁</span>
+            <div class="list-item-content">
+              <div class="list-item-title">Envío gratis</div>
+              <div class="list-item-desc">Pedidos +50€ • 5-7 días</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stores Screen -->
+    <div id="screen-stores" class="page screen hidden">
+      <a href="#" class="back-link" onclick="showScreen('dashboard'); return false;">← Volver al Dashboard</a>
+      <div class="page-header">
+        <h1 class="page-title">🏪 Tiendas Físicas</h1>
+        <p class="page-desc">Gestiona las ubicaciones de tus tiendas</p>
+      </div>
+
+      <div id="stores-empty" class="card empty-content">
+        <div class="empty-state">
+          <div class="empty-state-icon">🏪</div>
+          <h3 class="empty-state-title">Sin definición de tiendas</h3>
+          <button class="btn btn-primary" onclick="showDemoToast('Crear definición')">Crear Definición</button>
+        </div>
+      </div>
+
+      <div id="stores-no-data" class="no-data-content hidden">
+        <div class="card">
+          <div class="empty-state">
+            <div class="empty-state-icon">📍</div>
+            <h3 class="empty-state-title">Añade tus tiendas</h3>
+            <button class="btn btn-primary" onclick="showDemoToast('Añadir tienda')">Añadir Tienda</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="stores-configured" class="configured-content hidden">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">Tiendas</h3>
+              <p class="card-desc">2 ubicaciones</p>
+            </div>
+            <button class="btn btn-secondary" onclick="showDemoToast('Añadir tienda')">+ Añadir</button>
+          </div>
+          <div class="list-item">
+            <span class="list-item-icon">📍</span>
+            <div class="list-item-content">
+              <div class="list-item-title">Tienda Madrid Centro</div>
+              <div class="list-item-desc">Calle Gran Vía 42, 28013 Madrid</div>
+            </div>
+          </div>
+          <div class="list-item">
+            <span class="list-item-icon">📍</span>
+            <div class="list-item-content">
+              <div class="list-item-title">Tienda Barcelona</div>
+              <div class="list-item-desc">Passeig de Gràcia 55, 08007 Barcelona</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Legal Screen -->
+    <div id="screen-legal" class="page screen hidden">
+      <a href="#" class="back-link" onclick="showScreen('dashboard'); return false;">← Volver al Dashboard</a>
+      <div class="page-header">
+        <h1 class="page-title">⚖️ Legal</h1>
+        <p class="page-desc">Políticas y documentos legales</p>
+      </div>
+
+      <div id="legal-empty" class="card empty-content">
+        <div class="empty-state">
+          <div class="empty-state-icon">⚖️</div>
+          <h3 class="empty-state-title">Sin documentos legales</h3>
+          <button class="btn btn-primary" onclick="showDemoToast('Crear definición')">Crear Definición</button>
+        </div>
+      </div>
+
+      <div id="legal-no-data" class="no-data-content hidden">
+        <div class="card">
+          <div class="empty-state">
+            <div class="empty-state-icon">📄</div>
+            <h3 class="empty-state-title">Configura tus políticas</h3>
+            <button class="btn btn-primary" onclick="showDemoToast('Crear políticas')">Crear Ejemplos</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="legal-configured" class="configured-content hidden">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">Documentos Legales</h3>
+            </div>
+          </div>
+          <div class="list-item">
+            <span class="list-item-icon">📄</span>
+            <div class="list-item-content">
+              <div class="list-item-title">Política de Privacidad</div>
+              <div class="list-item-desc">Última actualización: 15/01/2026</div>
+            </div>
+            <span class="badge badge-success">Activo</span>
+          </div>
+          <div class="list-item">
+            <span class="list-item-icon">📄</span>
+            <div class="list-item-content">
+              <div class="list-item-title">Términos y Condiciones</div>
+              <div class="list-item-desc">Última actualización: 15/01/2026</div>
+            </div>
+            <span class="badge badge-success">Activo</span>
+          </div>
+          <div class="list-item">
+            <span class="list-item-icon">📄</span>
+            <div class="list-item-content">
+              <div class="list-item-title">Política de Devoluciones</div>
+              <div class="list-item-desc">30 días para devoluciones</div>
+            </div>
+            <span class="badge badge-success">Activo</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reviews Screen -->
+    <div id="screen-reviews" class="page screen hidden">
+      <a href="#" class="back-link" onclick="showScreen('dashboard'); return false;">← Volver al Dashboard</a>
+      <div class="page-header">
+        <h1 class="page-title">⭐ Reviews</h1>
+        <p class="page-desc">Configuración del sistema de reseñas</p>
+      </div>
+
+      <div id="reviews-empty" class="card empty-content">
+        <div class="empty-state">
+          <div class="empty-state-icon">⭐</div>
+          <h3 class="empty-state-title">Reviews no configurado</h3>
+          <button class="btn btn-primary" onclick="showDemoToast('Crear definición')">Crear Definición</button>
+        </div>
+      </div>
+
+      <div id="reviews-no-data" class="no-data-content hidden">
+        <div class="card">
+          <div class="empty-state">
+            <div class="empty-state-icon">⭐</div>
+            <h3 class="empty-state-title">Configura el proveedor de reviews</h3>
+            <button class="btn btn-primary" onclick="showDemoToast('Configurar')">Configurar</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="reviews-configured" class="configured-content hidden">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">Proveedor de Reviews</h3>
+            </div>
+            <span class="badge badge-success">Activo</span>
+          </div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">Proveedor</label>
+              <input type="text" class="form-input" value="Judge.me" readonly>
+            </div>
+            <div class="form-group">
+              <label class="form-label">API Key</label>
+              <input type="text" class="form-input" value="••••••••••••" readonly>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Favorites Screen -->
+    <div id="screen-favorites" class="page screen hidden">
+      <a href="#" class="back-link" onclick="showScreen('dashboard'); return false;">← Volver al Dashboard</a>
+      <div class="page-header">
+        <h1 class="page-title">❤️ Favoritos</h1>
+        <p class="page-desc">Configuración del sistema de favoritos</p>
+      </div>
+
+      <div id="favorites-empty" class="card empty-content">
+        <div class="empty-state">
+          <div class="empty-state-icon">❤️</div>
+          <h3 class="empty-state-title">Favoritos no configurado</h3>
+          <button class="btn btn-primary" onclick="showDemoToast('Crear definición')">Crear Definición</button>
+        </div>
+      </div>
+
+      <div id="favorites-no-data" class="no-data-content hidden">
+        <div class="card">
+          <div class="empty-state">
+            <div class="empty-state-icon">❤️</div>
+            <h3 class="empty-state-title">Configura el sistema de favoritos</h3>
+            <button class="btn btn-primary" onclick="showDemoToast('Configurar')">Configurar</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="favorites-configured" class="configured-content hidden">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">Configuración de Favoritos</h3>
+            </div>
+            <span class="badge badge-success">Activo</span>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Almacenamiento</label>
+            <input type="text" class="form-input" value="Customer Metafields" readonly>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Máximo de favoritos</label>
+            <input type="text" class="form-input" value="100" readonly>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Newsletter Screen -->
+    <div id="screen-newsletter" class="page screen hidden">
+      <a href="#" class="back-link" onclick="showScreen('dashboard'); return false;">← Volver al Dashboard</a>
+      <div class="page-header">
+        <h1 class="page-title">📧 Newsletter</h1>
+        <p class="page-desc">Configuración de suscripción a newsletter</p>
+      </div>
+
+      <div id="newsletter-empty" class="card empty-content">
+        <div class="empty-state">
+          <div class="empty-state-icon">📧</div>
+          <h3 class="empty-state-title">Newsletter no configurado</h3>
+          <button class="btn btn-primary" onclick="showDemoToast('Crear definición')">Crear Definición</button>
+        </div>
+      </div>
+
+      <div id="newsletter-no-data" class="no-data-content hidden">
+        <div class="card">
+          <div class="empty-state">
+            <div class="empty-state-icon">📧</div>
+            <h3 class="empty-state-title">Configura el popup de newsletter</h3>
+            <button class="btn btn-primary" onclick="showDemoToast('Configurar')">Configurar</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="newsletter-configured" class="configured-content hidden">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">Popup de Newsletter</h3>
+            </div>
+            <span class="badge badge-success">Activo</span>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Título</label>
+            <input type="text" class="form-input" value="¡Suscríbete y obtén un 10% de descuento!" readonly>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Código de descuento</label>
+            <input type="text" class="form-input" value="WELCOME10" readonly>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notifications Screen -->
+    <div id="screen-notifications" class="page screen hidden">
+      <a href="#" class="back-link" onclick="showScreen('dashboard'); return false;">← Volver al Dashboard</a>
+      <div class="page-header">
+        <h1 class="page-title">🔔 Notificaciones Push</h1>
+        <p class="page-desc">Configuración de notificaciones</p>
+      </div>
+
+      <div id="notifications-empty" class="card empty-content">
+        <div class="empty-state">
+          <div class="empty-state-icon">🔔</div>
+          <h3 class="empty-state-title">Notificaciones no configuradas</h3>
+          <button class="btn btn-primary" onclick="showDemoToast('Crear definición')">Crear Definición</button>
+        </div>
+      </div>
+
+      <div id="notifications-no-data" class="no-data-content hidden">
+        <div class="card">
+          <div class="empty-state">
+            <div class="empty-state-icon">🔔</div>
+            <h3 class="empty-state-title">Configura las notificaciones</h3>
+            <button class="btn btn-primary" onclick="showDemoToast('Configurar')">Configurar</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="notifications-configured" class="configured-content hidden">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">Configuración Push</h3>
+            </div>
+            <span class="badge badge-success">Activo</span>
+          </div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">Proveedor</label>
+              <input type="text" class="form-input" value="OneSignal" readonly>
+            </div>
+            <div class="form-group">
+              <label class="form-label">App ID</label>
+              <input type="text" class="form-input" value="abc123-def456..." readonly>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Deep Links Screen -->
+    <div id="screen-deep-links" class="page screen hidden">
+      <a href="#" class="back-link" onclick="showScreen('dashboard'); return false;">← Volver al Dashboard</a>
+      <div class="page-header">
+        <h1 class="page-title">🔗 Deep Links</h1>
+        <p class="page-desc">Configuración de deep links</p>
+      </div>
+
+      <div id="deep-links-empty" class="card empty-content">
+        <div class="empty-state">
+          <div class="empty-state-icon">🔗</div>
+          <h3 class="empty-state-title">Deep Links no configurados</h3>
+          <button class="btn btn-primary" onclick="showDemoToast('Crear definición')">Crear Definición</button>
+        </div>
+      </div>
+
+      <div id="deep-links-no-data" class="no-data-content hidden">
+        <div class="card">
+          <div class="empty-state">
+            <div class="empty-state-icon">🔗</div>
+            <h3 class="empty-state-title">Configura los deep links</h3>
+            <button class="btn btn-primary" onclick="showDemoToast('Configurar')">Configurar</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="deep-links-configured" class="configured-content hidden">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">Deep Links</h3>
+            </div>
+            <span class="badge badge-success">Configurado</span>
+          </div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">iOS URL Scheme</label>
+              <input type="text" class="form-input" value="myapp://" readonly>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Android Package</label>
+              <input type="text" class="form-input" value="com.mycompany.myapp" readonly>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Toast -->
+  <div id="toast" class="toast">
+    <span class="toast-icon">ℹ️</span>
+    <span class="toast-message" id="toast-message"></span>
+  </div>
+
+  <script>
+    // State management
+    let currentState = 'configured';
+    let currentScreen = 'dashboard';
+
+    const sections = [
+      { id: 'home-setup', icon: '🏠', title: 'Home Setup', desc: 'Banner y configuración inicial' },
+      { id: 'content', icon: '📝', title: 'Contenido', desc: 'FAQs y About' },
+      { id: 'payments', icon: '💳', title: 'Pagos', desc: 'Métodos de pago' },
+      { id: 'shipping', icon: '🚚', title: 'Envíos', desc: 'Opciones de envío' },
+      { id: 'stores', icon: '🏪', title: 'Tiendas', desc: 'Ubicaciones físicas' },
+      { id: 'legal', icon: '⚖️', title: 'Legal', desc: 'Políticas y términos' },
+      { id: 'reviews', icon: '⭐', title: 'Reviews', desc: 'Sistema de reseñas' },
+      { id: 'favorites', icon: '❤️', title: 'Favoritos', desc: 'Lista de deseos' },
+      { id: 'newsletter', icon: '📧', title: 'Newsletter', desc: 'Suscripción email' },
+      { id: 'notifications', icon: '🔔', title: 'Notificaciones', desc: 'Push notifications' },
+      { id: 'deep-links', icon: '🔗', title: 'Deep Links', desc: 'Enlaces profundos' },
+    ];
+
+    // Initialize
+    function init() {
+      renderDashboardSections();
+      setState('configured');
+    }
+
+    function renderDashboardSections() {
+      const container = document.getElementById('dashboard-sections');
+      container.innerHTML = sections.map(s => `
+        <div class="section-card" onclick="showScreen('${s.id}')">
+          <div class="section-card-header">
+            <span class="section-card-icon">${s.icon}</span>
+            <span class="section-card-title">${s.title}</span>
+          </div>
+          <div class="section-card-desc">${s.desc}</div>
+        </div>
+      `).join('');
+    }
+
+    function setState(state) {
+      currentState = state;
+
+      // Update buttons
+      document.querySelectorAll('.state-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.state === state);
+      });
+
+      // Update stats based on state
+      if (state === 'empty') {
+        document.getElementById('stat-complete').textContent = '0';
+        document.getElementById('stat-partial').textContent = '0';
+        document.getElementById('stat-pending').textContent = '11';
+      } else if (state === 'no-data') {
+        document.getElementById('stat-complete').textContent = '0';
+        document.getElementById('stat-partial').textContent = '11';
+        document.getElementById('stat-pending').textContent = '0';
+      } else {
+        document.getElementById('stat-complete').textContent = '8';
+        document.getElementById('stat-partial').textContent = '2';
+        document.getElementById('stat-pending').textContent = '1';
+      }
+
+      // Update all screens content visibility
+      document.querySelectorAll('.empty-content').forEach(el => {
+        el.classList.toggle('hidden', state !== 'empty');
+      });
+      document.querySelectorAll('.no-data-content').forEach(el => {
+        el.classList.toggle('hidden', state !== 'no-data');
+      });
+      document.querySelectorAll('.configured-content').forEach(el => {
+        el.classList.toggle('hidden', state !== 'configured');
+      });
+    }
+
+    function showScreen(screenId) {
+      currentScreen = screenId;
+
+      // Hide all screens
+      document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
+
+      // Show selected screen
+      document.getElementById('screen-' + screenId).classList.remove('hidden');
+
+      // Update nav
+      document.querySelectorAll('.nav-item').forEach(item => {
+        item.classList.toggle('active', item.dataset.screen === screenId);
+      });
+
+      // Re-apply state
+      setState(currentState);
+    }
+
+    function showDemoToast(action) {
+      const toast = document.getElementById('toast');
+      const message = document.getElementById('toast-message');
+      message.textContent = `Demo: "${action}" guardaría los cambios en producción`;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    function showShopifyToast() {
+      const toast = document.getElementById('toast');
+      const message = document.getElementById('toast-message');
+      message.textContent = 'Demo: Esto abriría Shopify Admin en producción';
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    // Initialize on load
+    init();
+  </script>
+</body>
+</html>
