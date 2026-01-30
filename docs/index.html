@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopify Setup Wizard - Documentation</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      min-height: 100vh;
+      color: #fff;
+      padding: 40px 20px;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    h1 {
+      font-size: 42px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      background: linear-gradient(90deg, #fff, #a8dadc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .subtitle {
+      color: #888;
+      font-size: 18px;
+    }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 24px;
+      margin-bottom: 60px;
+    }
+    .card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 32px;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .card:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.2);
+      transform: translateY(-4px);
+    }
+    .card-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+    .card-title {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .card-desc {
+      color: #888;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .preview-image {
+      margin-top: 20px;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .preview-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+    .stat {
+      text-align: center;
+    }
+    .stat-value {
+      font-size: 36px;
+      font-weight: 700;
+      color: #5a9a5a;
+    }
+    .stat-label {
+      color: #888;
+      font-size: 14px;
+    }
+    footer {
+      text-align: center;
+      color: #666;
+      font-size: 12px;
+    }
+    footer a {
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Shopify Setup Wizard</h1>
+      <p class="subtitle">Embedded Shopify App for Mobile Configuration</p>
+    </header>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-value">13</div>
+        <div class="stat-label">Screens</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">3</div>
+        <div class="stat-label">States</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">41</div>
+        <div class="stat-label">Screenshots</div>
+      </div>
+    </div>
+
+    <div class="cards">
+      <a href="screenshots/dashboard.png" class="card" target="_blank">
+        <div class="card-icon">📊</div>
+        <div class="card-title">Preview - Dashboard</div>
+        <div class="card-desc">
+          Vista completa del dashboard principal con el progreso de configuracion,
+          secciones pendientes y estado general de la app.
+        </div>
+        <div class="preview-image">
+          <img src="screenshots/dashboard.png" alt="Dashboard Preview" loading="lazy">
+        </div>
+      </a>
+
+      <a href="screenshots/" class="card">
+        <div class="card-icon">🖼️</div>
+        <div class="card-title">Galeria de Screenshots</div>
+        <div class="card-desc">
+          Todas las pantallas de la aplicacion organizadas por estado:
+          Pendiente, Sin datos y Configurado. Ideal para revision del equipo.
+        </div>
+        <div class="preview-image">
+          <img src="screenshots/gallery.png" alt="Gallery Preview" loading="lazy">
+        </div>
+      </a>
+    </div>
+
+    <div class="cards">
+      <a href="https://github.com/onesdata/app-shopify-wizard" class="card" target="_blank">
+        <div class="card-icon">💻</div>
+        <div class="card-title">Repositorio</div>
+        <div class="card-desc">
+          Codigo fuente en GitHub. React Router 7, TypeScript, Shopify App Bridge.
+        </div>
+      </a>
+
+      <a href="guides/FLUTTER_INTEGRATION_GUIDE.md" class="card" target="_blank">
+        <div class="card-icon">📱</div>
+        <div class="card-title">Flutter Integration</div>
+        <div class="card-desc">
+          Guia completa para integrar los metaobjects configurados en la app Flutter.
+        </div>
+      </a>
+    </div>
+
+    <footer>
+      <p>Onesdata &copy; 2026 - <a href="https://github.com/onesdata/app-shopify-wizard">GitHub</a></p>
+    </footer>
+  </div>
+</body>
+</html>
