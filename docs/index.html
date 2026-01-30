@@ -14,7 +14,7 @@
     }
     .hero {
       background: linear-gradient(135deg, #1a1a2e 0%, #0d1117 100%);
-      padding: 60px 20px;
+      padding: 60px 20px 40px;
       text-align: center;
       border-bottom: 1px solid #30363d;
     }
@@ -37,6 +37,7 @@
       justify-content: center;
       gap: 48px;
       flex-wrap: wrap;
+      margin-bottom: 32px;
     }
     .stat {
       text-align: center;
@@ -52,43 +53,38 @@
       text-transform: uppercase;
       letter-spacing: 1px;
     }
-
-    .nav {
-      background: #161b22;
-      padding: 16px 20px;
+    .hero-actions {
       display: flex;
       justify-content: center;
       gap: 12px;
       flex-wrap: wrap;
-      border-bottom: 1px solid #30363d;
-      position: sticky;
-      top: 0;
-      z-index: 100;
     }
-    .nav a {
+    .btn {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 10px 20px;
-      background: #21262d;
-      border: 1px solid #30363d;
+      padding: 14px 28px;
       border-radius: 8px;
-      color: #e6edf3;
+      font-size: 16px;
+      font-weight: 600;
       text-decoration: none;
-      font-size: 14px;
-      font-weight: 500;
       transition: all 0.2s;
     }
-    .nav a:hover {
+    .btn-primary {
+      background: #238636;
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background: #2ea043;
+    }
+    .btn-secondary {
+      background: #21262d;
+      border: 1px solid #30363d;
+      color: #e6edf3;
+    }
+    .btn-secondary:hover {
       background: #30363d;
       border-color: #58a6ff;
-    }
-    .nav a.primary {
-      background: #238636;
-      border-color: #238636;
-    }
-    .nav a.primary:hover {
-      background: #2ea043;
     }
 
     .main {
@@ -175,13 +171,14 @@
       display: flex;
       gap: 12px;
       flex-wrap: wrap;
-      margin-top: 16px;
+      margin-top: 8px;
     }
     .tech {
-      padding: 6px 12px;
+      padding: 8px 16px;
       background: #21262d;
+      border: 1px solid #30363d;
       border-radius: 20px;
-      font-size: 12px;
+      font-size: 13px;
       color: #8b949e;
     }
 
@@ -220,14 +217,11 @@
         <div class="stat-label">Metaobjects</div>
       </div>
     </div>
+    <div class="hero-actions">
+      <a href="screenshots/" class="btn btn-primary">🖼️ Ver Galería Interactiva</a>
+      <a href="https://github.com/onesdata/app-shopify-wizard" target="_blank" class="btn btn-secondary">💻 Ver Repositorio</a>
+    </div>
   </div>
-
-  <nav class="nav">
-    <a href="screenshots/" class="primary">🖼️ Ver Galería Interactiva</a>
-    <a href="https://github.com/onesdata/app-shopify-wizard" target="_blank">💻 Repositorio</a>
-    <a href="guides/FLUTTER_INTEGRATION_GUIDE.md" target="_blank">📱 Guía Flutter</a>
-    <a href="guides/CONFLUENCE_DOCUMENTATION.md" target="_blank">📚 Documentación</a>
-  </nav>
 
   <main class="main">
     <section class="section">
@@ -240,53 +234,53 @@
     <section class="section">
       <h2 class="section-title"><span>📂</span> Estados de la App</h2>
       <div class="cards">
-        <a href="screenshots/#state-empty" class="card">
+        <div class="card" onclick="document.querySelector('iframe').src='screenshots/#state-empty'">
           <div class="card-icon">⏳</div>
           <div class="card-title">Pendiente</div>
           <div class="card-desc">Sin definición de metaobject creada. Primera vez que el usuario accede a la sección.</div>
           <div class="card-badge orange">13 pantallas</div>
-        </a>
-        <a href="screenshots/#state-no-data" class="card">
+        </div>
+        <div class="card" onclick="document.querySelector('iframe').src='screenshots/#state-no-data'">
           <div class="card-icon">📋</div>
           <div class="card-title">Sin Datos</div>
-          <div class="card-desc">Definición creada pero sin entradas. El usuario puede crear datos de ejemplo o plantillas.</div>
+          <div class="card-desc">Definición creada pero sin entradas. El usuario puede crear datos de ejemplo.</div>
           <div class="card-badge blue">13 pantallas</div>
-        </a>
-        <a href="screenshots/#state-configured" class="card">
+        </div>
+        <div class="card" onclick="document.querySelector('iframe').src='screenshots/#state-configured'">
           <div class="card-icon">✅</div>
           <div class="card-title">Configurado</div>
           <div class="card-desc">Con datos completos. Muestra la información configurada y permite editarla.</div>
           <div class="card-badge">13 pantallas</div>
-        </a>
+        </div>
       </div>
     </section>
 
     <section class="section">
       <h2 class="section-title"><span>📚</span> Documentación</h2>
       <div class="cards">
-        <a href="guides/FLUTTER_INTEGRATION_GUIDE.md" class="card" target="_blank">
+        <a href="https://github.com/onesdata/app-shopify-wizard/blob/main/docs/guides/FLUTTER_INTEGRATION_GUIDE.md" class="card" target="_blank">
           <div class="card-icon">📱</div>
           <div class="card-title">Flutter Integration Guide</div>
           <div class="card-desc">Guía completa para consumir los metaobjects desde la app Flutter via Storefront API.</div>
-          <div class="card-badge purple">64KB</div>
+          <div class="card-badge purple">Guía</div>
         </a>
-        <a href="guides/CONFLUENCE_DOCUMENTATION.md" class="card" target="_blank">
+        <a href="https://github.com/onesdata/app-shopify-wizard/blob/main/docs/guides/CONFLUENCE_DOCUMENTATION.md" class="card" target="_blank">
           <div class="card-icon">📖</div>
           <div class="card-title">Confluence Documentation</div>
           <div class="card-desc">Documentación técnica completa del proyecto para Confluence.</div>
-          <div class="card-badge purple">24KB</div>
+          <div class="card-badge purple">Docs</div>
         </a>
-        <a href="guides/METAOBJECTS.md" class="card" target="_blank">
+        <a href="https://github.com/onesdata/app-shopify-wizard/blob/main/docs/guides/METAOBJECTS.md" class="card" target="_blank">
           <div class="card-icon">🗃️</div>
           <div class="card-title">Metaobjects Reference</div>
           <div class="card-desc">Referencia de todos los tipos de metaobjects y sus campos.</div>
-          <div class="card-badge purple">10KB</div>
+          <div class="card-badge purple">Reference</div>
         </a>
-        <a href="guides/SETUP_CHECKLIST.md" class="card" target="_blank">
-          <div class="card-icon">✓</div>
-          <div class="card-title">Setup Checklist</div>
-          <div class="card-desc">Lista de verificación para el setup inicial de la tienda.</div>
-          <div class="card-badge purple">4KB</div>
+        <a href="https://github.com/onesdata/app-shopify-wizard/blob/main/docs/guides/CHANGELOG.md" class="card" target="_blank">
+          <div class="card-icon">📝</div>
+          <div class="card-title">Changelog</div>
+          <div class="card-desc">Historial de cambios y versiones del proyecto.</div>
+          <div class="card-badge purple">History</div>
         </a>
       </div>
     </section>
@@ -297,10 +291,11 @@
         <span class="tech">React Router 7</span>
         <span class="tech">TypeScript</span>
         <span class="tech">Shopify App Bridge</span>
-        <span class="tech">Prisma</span>
+        <span class="tech">Prisma + SQLite</span>
         <span class="tech">GraphQL</span>
         <span class="tech">Playwright</span>
         <span class="tech">Storybook</span>
+        <span class="tech">GitHub Pages</span>
       </div>
     </section>
   </main>
