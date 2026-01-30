@@ -1,0 +1,81 @@
+name: Generate Screenshots & Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  screenshots:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install chromium
+
+      - name: Start dev server
+        run: npx vite --port 5173 &
+        env:
+          NODE_ENV: development
+
+      - name: Wait for server
+        run: npx wait-on http://localhost:5173 --timeout 60000
+
+      - name: Generate screenshots
+        run: npm run screenshots
+
+      - name: Copy screenshots to docs
+        run: |
+          cp -r screenshots/* docs/screenshots/
+          echo "Screenshots copied to docs/screenshots/"
+
+      - name: Commit screenshots
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add docs/screenshots/
+          git diff --staged --quiet || git commit -m "chore: update screenshots [skip ci]"
+          git push
+
+  deploy:
+    needs: screenshots
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Pull latest changes
+        run: git pull origin main
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'docs'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

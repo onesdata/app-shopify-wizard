@@ -27,20 +27,21 @@ const SCREENS = [
 ];
 
 // Pantallas individuales (desde la galería)
+// El id debe coincidir con screen.id y el name con screen.name de preview.screens.tsx
 const APP_SCREENS = [
-  "dashboard",
-  "home-setup",
-  "content",
-  "payments",
-  "shipping",
-  "stores",
-  "legal",
-  "reviews",
-  "favorites",
-  "newsletter",
-  "notifications",
-  "deep-links",
-  "guide",
+  { id: "dashboard", name: "Dashboard" },
+  { id: "home-setup", name: "Home Setup" },
+  { id: "content", name: "Contenido" },
+  { id: "payments", name: "Pagos" },
+  { id: "shipping", name: "Envíos" },
+  { id: "stores", name: "Tiendas" },
+  { id: "legal", name: "Legal" },
+  { id: "reviews", name: "Reviews" },
+  { id: "favorites", name: "Favoritos" },
+  { id: "newsletter", name: "Newsletter" },
+  { id: "notifications", name: "Notificaciones" },
+  { id: "deep-links", name: "Deep Links" },
+  { id: "guide", name: "Guía" },
 ];
 
 interface ScreenshotOptions {
@@ -98,10 +99,10 @@ async function captureGalleryScreens(
 
   // Capture each screen
   for (let i = 0; i < APP_SCREENS.length; i++) {
-    const screenId = APP_SCREENS[i];
+    const screen = APP_SCREENS[i];
 
-    // Click on screen in sidebar
-    await page.click(`button:has-text("${screenId.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ")}")`).catch(() => {
+    // Click on screen in sidebar using the exact button name
+    await page.click(`button:has-text("${screen.name}")`).catch(() => {
       // Try by index if text doesn't match
       page.click(`button >> nth=${i + 2}`).catch(() => {});
     });
@@ -109,20 +110,20 @@ async function captureGalleryScreens(
     await page.waitForTimeout(300);
 
     // Capture the screen content area
-    const screenElement = await page.$(`#screen-${screenId}`);
+    const screenElement = await page.$(`#screen-${screen.id}`);
     if (screenElement) {
       await screenElement.screenshot({
-        path: path.join(stateDir, `${screenId}.png`),
+        path: path.join(stateDir, `${screen.id}.png`),
       });
     } else {
       // Fallback to full page
       await page.screenshot({
-        path: path.join(stateDir, `${screenId}.png`),
+        path: path.join(stateDir, `${screen.id}.png`),
         fullPage: false,
       });
     }
 
-    console.log(`  ✓ ${screenId} (${state})`);
+    console.log(`  ✓ ${screen.id} (${state})`);
   }
 }
 
@@ -267,12 +268,12 @@ async function generateIndexHtml(outputDir: string, state: "empty" | "no-data" |
     <div id="state-${s}" class="grid${s !== states[0] ? ' hidden' : ''}">
       ${APP_SCREENS.map(screen => `
         <div class="card">
-          <a href="${s}/${screen}.png" target="_blank">
-            <img src="${s}/${screen}.png" alt="${screen}" loading="lazy">
+          <a href="${s}/${screen.id}.png" target="_blank">
+            <img src="${s}/${screen.id}.png" alt="${screen.id}" loading="lazy">
           </a>
           <div class="card-info">
-            <div class="card-title">${screen.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ")}</div>
-            <div class="card-path">/app/${screen}</div>
+            <div class="card-title">${screen.name}</div>
+            <div class="card-path">/app/${screen.id}</div>
           </div>
         </div>
       `).join("")}
