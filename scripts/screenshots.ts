@@ -89,38 +89,45 @@ async function captureGalleryScreens(
   const stateDir = path.join(outputDir, state);
   fs.mkdirSync(stateDir, { recursive: true });
 
-  // Go to gallery
-  await page.goto(`${BASE_URL}/preview/screens`, { waitUntil: "networkidle" });
+  // Go to preview (single page app)
+  await page.goto(`${BASE_URL}/preview`, { waitUntil: "networkidle" });
 
-  // Set state - buttons now have emoji prefixes
+  // Set state using data-state attribute selector
   const stateButtonText = state === "empty" ? "Pendiente" : state === "no-data" ? "Sin datos" : "Configurado";
-  await page.click(`button:has-text("${stateButtonText}")`).catch(() => {});
+  await page.click(`button.state-btn:has-text("${stateButtonText}")`).catch(() => {});
   await page.waitForTimeout(500);
 
   // Capture each screen
-  for (let i = 0; i < APP_SCREENS.length; i++) {
-    const screen = APP_SCREENS[i];
-
-    // Click on screen in sidebar using the exact button name
-    await page.click(`button:has-text("${screen.name}")`).catch(() => {
-      // Try by index if text doesn't match
-      page.click(`button >> nth=${i + 2}`).catch(() => {});
+  for (const screen of APP_SCREENS) {
+    // Click on screen in sidebar using data-screen attribute
+    await page.click(`button.nav-item[data-screen="${screen.id}"]`).catch(async () => {
+      // Fallback: try clicking by text
+      await page.click(`button.nav-item:has-text("${screen.name}")`).catch(() => {});
     });
 
+    // Wait for the screen to be visible (not hidden)
+    await page.waitForSelector(`#screen-${screen.id}:not(.hidden)`, { timeout: 2000 }).catch(() => {});
     await page.waitForTimeout(300);
 
-    // Capture the screen content area
-    const screenElement = await page.$(`#screen-${screen.id}`);
-    if (screenElement) {
-      await screenElement.screenshot({
+    // Capture the main content area (everything except sidebar)
+    const mainContent = await page.$("main.main");
+    if (mainContent) {
+      await mainContent.screenshot({
         path: path.join(stateDir, `${screen.id}.png`),
       });
     } else {
-      // Fallback to full page
-      await page.screenshot({
-        path: path.join(stateDir, `${screen.id}.png`),
-        fullPage: false,
-      });
+      // Fallback: capture the screen element or full page
+      const screenElement = await page.$(`#screen-${screen.id}`);
+      if (screenElement) {
+        await screenElement.screenshot({
+          path: path.join(stateDir, `${screen.id}.png`),
+        });
+      } else {
+        await page.screenshot({
+          path: path.join(stateDir, `${screen.id}.png`),
+          fullPage: false,
+        });
+      }
     }
 
     console.log(`  ✓ ${screen.id} (${state})`);

@@ -29,16 +29,14 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install chromium
 
-      - name: Start dev server
-        run: npx vite --port 5173 &
-        env:
-          NODE_ENV: development
+      - name: Start static server for docs
+        run: npx serve docs -p 3333 &
 
       - name: Wait for server
-        run: npx wait-on http://localhost:5173 --timeout 60000
+        run: npx wait-on http://localhost:3333 --timeout 60000
 
       - name: Generate screenshots
-        run: npm run screenshots
+        run: BASE_URL=http://localhost:3333 npm run screenshots
 
       - name: Copy screenshots to docs
         run: |
