@@ -1579,13 +1579,14 @@
           <span class="badge badge-success">17 metaobjects</span>
         </div>
       </div>
+      <!-- Stats -->
       <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px;">
         <div class="card" style="text-align: center; padding: 20px;">
           <div style="font-size: 32px; font-weight: 700; color: var(--text);">17</div>
           <div style="font-size: 12px; color: var(--text-muted); text-transform: uppercase;">Metaobjects</div>
         </div>
         <div class="card" style="text-align: center; padding: 20px;">
-          <div style="font-size: 32px; font-weight: 700; color: var(--text);">89</div>
+          <div style="font-size: 32px; font-weight: 700; color: var(--text);">112</div>
           <div style="font-size: 12px; color: var(--text-muted); text-transform: uppercase;">Campos</div>
         </div>
         <div class="card" style="text-align: center; padding: 20px;">
@@ -1593,53 +1594,234 @@
           <div style="font-size: 12px; color: var(--text-muted); text-transform: uppercase;">Secciones</div>
         </div>
       </div>
+      <!-- Metaobjects Grid -->
       <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;">
+        <!-- Home Banner -->
         <div class="card" style="padding: 16px;">
           <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
             <span style="font-size: 20px;">🏠</span>
-            <div>
-              <h3 style="font-size: 14px; font-weight: 600; margin: 0;">Home Banner</h3>
-              <code style="font-size: 11px; color: var(--text-muted);">home_banner</code>
-            </div>
+            <div><h3 style="font-size: 14px; font-weight: 600; margin: 0;">Home Banner</h3><code style="font-size: 11px; color: var(--text-muted);">home_banner</code></div>
           </div>
           <table style="width: 100%; font-size: 12px; border-collapse: collapse;">
-            <tr style="background: var(--bg);"><th style="padding: 8px; text-align: left;">Campo</th><th style="padding: 8px;">Tipo</th></tr>
-            <tr><td style="padding: 8px;">Título</td><td style="padding: 8px; font-family: monospace; font-size: 10px;">text</td></tr>
-            <tr><td style="padding: 8px;">Subtítulo</td><td style="padding: 8px; font-family: monospace; font-size: 10px;">text</td></tr>
-            <tr><td style="padding: 8px;">Imagen</td><td style="padding: 8px; font-family: monospace; font-size: 10px;">file</td></tr>
+            <tr style="background: var(--bg);"><th style="padding: 6px; text-align: left;">Campo</th><th style="padding: 6px;">Tipo</th><th style="padding: 6px; width: 20px;">*</th></tr>
+            <tr><td style="padding: 6px;">Title</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">text</td><td style="padding: 6px; color: #dc2626;">●</td></tr>
+            <tr><td style="padding: 6px;">Subtitle</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">text</td><td style="padding: 6px; color: #e0e0e0;">○</td></tr>
+            <tr><td style="padding: 6px;">Image</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">file</td><td style="padding: 6px; color: #dc2626;">●</td></tr>
+            <tr><td style="padding: 6px;">Link URL</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">url</td><td style="padding: 6px; color: #e0e0e0;">○</td></tr>
           </table>
         </div>
+        <!-- Featured Collection -->
+        <div class="card" style="padding: 16px;">
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+            <span style="font-size: 20px;">⭐</span>
+            <div><h3 style="font-size: 14px; font-weight: 600; margin: 0;">Featured Collection</h3><code style="font-size: 11px; color: var(--text-muted);">home_featured_collection</code></div>
+          </div>
+          <table style="width: 100%; font-size: 12px; border-collapse: collapse;">
+            <tr style="background: var(--bg);"><th style="padding: 6px; text-align: left;">Campo</th><th style="padding: 6px;">Tipo</th><th style="padding: 6px; width: 20px;">*</th></tr>
+            <tr><td style="padding: 6px;">Collection</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">collection</td><td style="padding: 6px; color: #dc2626;">●</td></tr>
+            <tr><td style="padding: 6px;">Display Title</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">text</td><td style="padding: 6px; color: #e0e0e0;">○</td></tr>
+            <tr><td style="padding: 6px;">Products Count</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">int</td><td style="padding: 6px; color: #e0e0e0;">○</td></tr>
+            <tr><td style="padding: 6px;">Layout Type</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">text</td><td style="padding: 6px; color: #e0e0e0;">○</td></tr>
+          </table>
+        </div>
+        <!-- Category Grid -->
+        <div class="card" style="padding: 16px;">
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+            <span style="font-size: 20px;">📱</span>
+            <div><h3 style="font-size: 14px; font-weight: 600; margin: 0;">Category Grid</h3><code style="font-size: 11px; color: var(--text-muted);">home_category_grid</code></div>
+          </div>
+          <table style="width: 100%; font-size: 12px; border-collapse: collapse;">
+            <tr style="background: var(--bg);"><th style="padding: 6px; text-align: left;">Campo</th><th style="padding: 6px;">Tipo</th><th style="padding: 6px; width: 20px;">*</th></tr>
+            <tr><td style="padding: 6px;">Title</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">text</td><td style="padding: 6px; color: #e0e0e0;">○</td></tr>
+            <tr><td style="padding: 6px;">Categories</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">list</td><td style="padding: 6px; color: #e0e0e0;">○</td></tr>
+            <tr><td style="padding: 6px;">Layout</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">text</td><td style="padding: 6px; color: #e0e0e0;">○</td></tr>
+            <tr><td style="padding: 6px;">Order</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">int</td><td style="padding: 6px; color: #e0e0e0;">○</td></tr>
+          </table>
+        </div>
+        <!-- FAQ Item -->
+        <div class="card" style="padding: 16px;">
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+            <span style="font-size: 20px;">❓</span>
+            <div><h3 style="font-size: 14px; font-weight: 600; margin: 0;">FAQ Item</h3><code style="font-size: 11px; color: var(--text-muted);">faq_item</code></div>
+          </div>
+          <table style="width: 100%; font-size: 12px; border-collapse: collapse;">
+            <tr style="background: var(--bg);"><th style="padding: 6px; text-align: left;">Campo</th><th style="padding: 6px;">Tipo</th><th style="padding: 6px; width: 20px;">*</th></tr>
+            <tr><td style="padding: 6px;">Question</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">text</td><td style="padding: 6px; color: #dc2626;">●</td></tr>
+            <tr><td style="padding: 6px;">Answer</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">multitext</td><td style="padding: 6px; color: #dc2626;">●</td></tr>
+            <tr><td style="padding: 6px;">Category</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">text</td><td style="padding: 6px; color: #e0e0e0;">○</td></tr>
+            <tr><td style="padding: 6px;">Order</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">int</td><td style="padding: 6px; color: #e0e0e0;">○</td></tr>
+          </table>
+        </div>
+        <!-- Contact Info -->
+        <div class="card" style="padding: 16px;">
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+            <span style="font-size: 20px;">📞</span>
+            <div><h3 style="font-size: 14px; font-weight: 600; margin: 0;">Contact Info</h3><code style="font-size: 11px; color: var(--text-muted);">contact_info</code></div>
+          </div>
+          <table style="width: 100%; font-size: 12px; border-collapse: collapse;">
+            <tr style="background: var(--bg);"><th style="padding: 6px; text-align: left;">Campo</th><th style="padding: 6px;">Tipo</th><th style="padding: 6px; width: 20px;">*</th></tr>
+            <tr><td style="padding: 6px;">Phone</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">text</td><td style="padding: 6px; color: #e0e0e0;">○</td></tr>
+            <tr><td style="padding: 6px;">Email</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">text</td><td style="padding: 6px; color: #e0e0e0;">○</td></tr>
+            <tr><td style="padding: 6px;">WhatsApp</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">text</td><td style="padding: 6px; color: #e0e0e0;">○</td></tr>
+            <tr><td style="padding: 6px;">Address</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">multitext</td><td style="padding: 6px; color: #e0e0e0;">○</td></tr>
+          </table>
+        </div>
+        <!-- Store Location -->
+        <div class="card" style="padding: 16px;">
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+            <span style="font-size: 20px;">🏪</span>
+            <div><h3 style="font-size: 14px; font-weight: 600; margin: 0;">Store Location</h3><code style="font-size: 11px; color: var(--text-muted);">store_location</code></div>
+          </div>
+          <table style="width: 100%; font-size: 12px; border-collapse: collapse;">
+            <tr style="background: var(--bg);"><th style="padding: 6px; text-align: left;">Campo</th><th style="padding: 6px;">Tipo</th><th style="padding: 6px; width: 20px;">*</th></tr>
+            <tr><td style="padding: 6px;">Name</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">text</td><td style="padding: 6px; color: #dc2626;">●</td></tr>
+            <tr><td style="padding: 6px;">Address</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">multitext</td><td style="padding: 6px; color: #dc2626;">●</td></tr>
+            <tr><td style="padding: 6px;">Latitude</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">decimal</td><td style="padding: 6px; color: #e0e0e0;">○</td></tr>
+            <tr><td style="padding: 6px;">Longitude</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">decimal</td><td style="padding: 6px; color: #e0e0e0;">○</td></tr>
+          </table>
+        </div>
+        <!-- Payment Config -->
         <div class="card" style="padding: 16px;">
           <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
             <span style="font-size: 20px;">💳</span>
-            <div>
-              <h3 style="font-size: 14px; font-weight: 600; margin: 0;">Payment Config</h3>
-              <code style="font-size: 11px; color: var(--text-muted);">payment_config</code>
-            </div>
+            <div><h3 style="font-size: 14px; font-weight: 600; margin: 0;">Payment Config</h3><code style="font-size: 11px; color: var(--text-muted);">payment_config</code></div>
           </div>
           <table style="width: 100%; font-size: 12px; border-collapse: collapse;">
-            <tr style="background: var(--bg);"><th style="padding: 8px; text-align: left;">Campo</th><th style="padding: 8px;">Tipo</th></tr>
-            <tr><td style="padding: 8px;">Apple Pay</td><td style="padding: 8px; font-family: monospace; font-size: 10px;">boolean</td></tr>
-            <tr><td style="padding: 8px;">Google Pay</td><td style="padding: 8px; font-family: monospace; font-size: 10px;">boolean</td></tr>
-            <tr><td style="padding: 8px;">PayPal</td><td style="padding: 8px; font-family: monospace; font-size: 10px;">boolean</td></tr>
+            <tr style="background: var(--bg);"><th style="padding: 6px; text-align: left;">Campo</th><th style="padding: 6px;">Tipo</th><th style="padding: 6px; width: 20px;">*</th></tr>
+            <tr><td style="padding: 6px;">Apple Pay</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">boolean</td><td style="padding: 6px; color: #e0e0e0;">○</td></tr>
+            <tr><td style="padding: 6px;">Google Pay</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">boolean</td><td style="padding: 6px; color: #e0e0e0;">○</td></tr>
+            <tr><td style="padding: 6px;">PayPal</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">boolean</td><td style="padding: 6px; color: #e0e0e0;">○</td></tr>
+            <tr><td style="padding: 6px;">Stripe Key</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">text</td><td style="padding: 6px; color: #e0e0e0;">○</td></tr>
           </table>
         </div>
+        <!-- Shipping Config -->
         <div class="card" style="padding: 16px;">
           <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
             <span style="font-size: 20px;">📦</span>
-            <div>
-              <h3 style="font-size: 14px; font-weight: 600; margin: 0;">Shipping Config</h3>
-              <code style="font-size: 11px; color: var(--text-muted);">shipping_config</code>
-            </div>
+            <div><h3 style="font-size: 14px; font-weight: 600; margin: 0;">Shipping Config</h3><code style="font-size: 11px; color: var(--text-muted);">shipping_config</code></div>
           </div>
           <table style="width: 100%; font-size: 12px; border-collapse: collapse;">
-            <tr style="background: var(--bg);"><th style="padding: 8px; text-align: left;">Campo</th><th style="padding: 8px;">Tipo</th></tr>
-            <tr><td style="padding: 8px;">Envío gratis</td><td style="padding: 8px; font-family: monospace; font-size: 10px;">decimal</td></tr>
-            <tr><td style="padding: 8px;">Días estándar</td><td style="padding: 8px; font-family: monospace; font-size: 10px;">int</td></tr>
-            <tr><td style="padding: 8px;">Días express</td><td style="padding: 8px; font-family: monospace; font-size: 10px;">int</td></tr>
+            <tr style="background: var(--bg);"><th style="padding: 6px; text-align: left;">Campo</th><th style="padding: 6px;">Tipo</th><th style="padding: 6px; width: 20px;">*</th></tr>
+            <tr><td style="padding: 6px;">Free Shipping</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">decimal</td><td style="padding: 6px; color: #e0e0e0;">○</td></tr>
+            <tr><td style="padding: 6px;">Standard Days</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">int</td><td style="padding: 6px; color: #e0e0e0;">○</td></tr>
+            <tr><td style="padding: 6px;">Express Days</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">int</td><td style="padding: 6px; color: #e0e0e0;">○</td></tr>
+            <tr><td style="padding: 6px;">Return Days</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">int</td><td style="padding: 6px; color: #e0e0e0;">○</td></tr>
+          </table>
+        </div>
+        <!-- Legal Policy -->
+        <div class="card" style="padding: 16px;">
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+            <span style="font-size: 20px;">📜</span>
+            <div><h3 style="font-size: 14px; font-weight: 600; margin: 0;">Legal Policy</h3><code style="font-size: 11px; color: var(--text-muted);">legal_policy</code></div>
+          </div>
+          <table style="width: 100%; font-size: 12px; border-collapse: collapse;">
+            <tr style="background: var(--bg);"><th style="padding: 6px; text-align: left;">Campo</th><th style="padding: 6px;">Tipo</th><th style="padding: 6px; width: 20px;">*</th></tr>
+            <tr><td style="padding: 6px;">Type</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">text</td><td style="padding: 6px; color: #dc2626;">●</td></tr>
+            <tr><td style="padding: 6px;">Title</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">text</td><td style="padding: 6px; color: #dc2626;">●</td></tr>
+            <tr><td style="padding: 6px;">Content</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">rich</td><td style="padding: 6px; color: #dc2626;">●</td></tr>
+            <tr><td style="padding: 6px;">Version</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">text</td><td style="padding: 6px; color: #e0e0e0;">○</td></tr>
+          </table>
+        </div>
+        <!-- Reviews Config -->
+        <div class="card" style="padding: 16px;">
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+            <span style="font-size: 20px;">⭐</span>
+            <div><h3 style="font-size: 14px; font-weight: 600; margin: 0;">Reviews Config</h3><code style="font-size: 11px; color: var(--text-muted);">reviews_config</code></div>
+          </div>
+          <table style="width: 100%; font-size: 12px; border-collapse: collapse;">
+            <tr style="background: var(--bg);"><th style="padding: 6px; text-align: left;">Campo</th><th style="padding: 6px;">Tipo</th><th style="padding: 6px; width: 20px;">*</th></tr>
+            <tr><td style="padding: 6px;">Provider</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">text</td><td style="padding: 6px; color: #e0e0e0;">○</td></tr>
+            <tr><td style="padding: 6px;">API Key</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">text</td><td style="padding: 6px; color: #e0e0e0;">○</td></tr>
+            <tr><td style="padding: 6px;">Shop Domain</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">text</td><td style="padding: 6px; color: #e0e0e0;">○</td></tr>
+            <tr><td style="padding: 6px;">Enabled</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">boolean</td><td style="padding: 6px; color: #e0e0e0;">○</td></tr>
+          </table>
+        </div>
+        <!-- Newsletter Config -->
+        <div class="card" style="padding: 16px;">
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+            <span style="font-size: 20px;">📧</span>
+            <div><h3 style="font-size: 14px; font-weight: 600; margin: 0;">Newsletter Config</h3><code style="font-size: 11px; color: var(--text-muted);">newsletter_config</code></div>
+          </div>
+          <table style="width: 100%; font-size: 12px; border-collapse: collapse;">
+            <tr style="background: var(--bg);"><th style="padding: 6px; text-align: left;">Campo</th><th style="padding: 6px;">Tipo</th><th style="padding: 6px; width: 20px;">*</th></tr>
+            <tr><td style="padding: 6px;">Provider</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">text</td><td style="padding: 6px; color: #e0e0e0;">○</td></tr>
+            <tr><td style="padding: 6px;">Popup Title</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">text</td><td style="padding: 6px; color: #e0e0e0;">○</td></tr>
+            <tr><td style="padding: 6px;">Discount Code</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">text</td><td style="padding: 6px; color: #e0e0e0;">○</td></tr>
+            <tr><td style="padding: 6px;">Delay Seconds</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">int</td><td style="padding: 6px; color: #e0e0e0;">○</td></tr>
+          </table>
+        </div>
+        <!-- Notification Config -->
+        <div class="card" style="padding: 16px;">
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+            <span style="font-size: 20px;">🔔</span>
+            <div><h3 style="font-size: 14px; font-weight: 600; margin: 0;">Notification Config</h3><code style="font-size: 11px; color: var(--text-muted);">notification_config</code></div>
+          </div>
+          <table style="width: 100%; font-size: 12px; border-collapse: collapse;">
+            <tr style="background: var(--bg);"><th style="padding: 6px; text-align: left;">Campo</th><th style="padding: 6px;">Tipo</th><th style="padding: 6px; width: 20px;">*</th></tr>
+            <tr><td style="padding: 6px;">Firebase Key</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">text</td><td style="padding: 6px; color: #e0e0e0;">○</td></tr>
+            <tr><td style="padding: 6px;">Order Created</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">boolean</td><td style="padding: 6px; color: #e0e0e0;">○</td></tr>
+            <tr><td style="padding: 6px;">Order Shipped</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">boolean</td><td style="padding: 6px; color: #e0e0e0;">○</td></tr>
+            <tr><td style="padding: 6px;">Promo</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">boolean</td><td style="padding: 6px; color: #e0e0e0;">○</td></tr>
+          </table>
+        </div>
+        <!-- Deep Link Config -->
+        <div class="card" style="padding: 16px;">
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+            <span style="font-size: 20px;">🔗</span>
+            <div><h3 style="font-size: 14px; font-weight: 600; margin: 0;">Deep Link Config</h3><code style="font-size: 11px; color: var(--text-muted);">deep_link_config</code></div>
+          </div>
+          <table style="width: 100%; font-size: 12px; border-collapse: collapse;">
+            <tr style="background: var(--bg);"><th style="padding: 6px; text-align: left;">Campo</th><th style="padding: 6px;">Tipo</th><th style="padding: 6px; width: 20px;">*</th></tr>
+            <tr><td style="padding: 6px;">iOS Bundle ID</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">text</td><td style="padding: 6px; color: #e0e0e0;">○</td></tr>
+            <tr><td style="padding: 6px;">Android Package</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">text</td><td style="padding: 6px; color: #e0e0e0;">○</td></tr>
+            <tr><td style="padding: 6px;">Short.io Domain</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">text</td><td style="padding: 6px; color: #e0e0e0;">○</td></tr>
+            <tr><td style="padding: 6px;">Fallback URL</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">url</td><td style="padding: 6px; color: #e0e0e0;">○</td></tr>
+          </table>
+        </div>
+        <!-- Webhook Config -->
+        <div class="card" style="padding: 16px;">
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+            <span style="font-size: 20px;">🌐</span>
+            <div><h3 style="font-size: 14px; font-weight: 600; margin: 0;">Webhook Config</h3><code style="font-size: 11px; color: var(--text-muted);">webhook_config</code></div>
+          </div>
+          <table style="width: 100%; font-size: 12px; border-collapse: collapse;">
+            <tr style="background: var(--bg);"><th style="padding: 6px; text-align: left;">Campo</th><th style="padding: 6px;">Tipo</th><th style="padding: 6px; width: 20px;">*</th></tr>
+            <tr><td style="padding: 6px;">Webhook URL</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">url</td><td style="padding: 6px; color: #dc2626;">●</td></tr>
+            <tr><td style="padding: 6px;">Secret Key</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">text</td><td style="padding: 6px; color: #e0e0e0;">○</td></tr>
+            <tr><td style="padding: 6px;">Order Create</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">boolean</td><td style="padding: 6px; color: #e0e0e0;">○</td></tr>
+            <tr><td style="padding: 6px;">Refund Create</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">boolean</td><td style="padding: 6px; color: #e0e0e0;">○</td></tr>
+          </table>
+        </div>
+        <!-- Favorites Config -->
+        <div class="card" style="padding: 16px;">
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+            <span style="font-size: 20px;">❤️</span>
+            <div><h3 style="font-size: 14px; font-weight: 600; margin: 0;">Favorites Config</h3><code style="font-size: 11px; color: var(--text-muted);">favorites_config</code></div>
+          </div>
+          <table style="width: 100%; font-size: 12px; border-collapse: collapse;">
+            <tr style="background: var(--bg);"><th style="padding: 6px; text-align: left;">Campo</th><th style="padding: 6px;">Tipo</th><th style="padding: 6px; width: 20px;">*</th></tr>
+            <tr><td style="padding: 6px;">Sync Mode</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">text</td><td style="padding: 6px; color: #e0e0e0;">○</td></tr>
+            <tr><td style="padding: 6px;">Max Favorites</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">int</td><td style="padding: 6px; color: #e0e0e0;">○</td></tr>
+            <tr><td style="padding: 6px;">Show Share</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">boolean</td><td style="padding: 6px; color: #e0e0e0;">○</td></tr>
+            <tr><td style="padding: 6px;">Collections</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">boolean</td><td style="padding: 6px; color: #e0e0e0;">○</td></tr>
+          </table>
+        </div>
+        <!-- App Config -->
+        <div class="card" style="padding: 16px;">
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+            <span style="font-size: 20px;">⚙️</span>
+            <div><h3 style="font-size: 14px; font-weight: 600; margin: 0;">App Config</h3><code style="font-size: 11px; color: var(--text-muted);">app_config</code></div>
+          </div>
+          <table style="width: 100%; font-size: 12px; border-collapse: collapse;">
+            <tr style="background: var(--bg);"><th style="padding: 6px; text-align: left;">Campo</th><th style="padding: 6px;">Tipo</th><th style="padding: 6px; width: 20px;">*</th></tr>
+            <tr><td style="padding: 6px;">App Name</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">text</td><td style="padding: 6px; color: #e0e0e0;">○</td></tr>
+            <tr><td style="padding: 6px;">Primary Color</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">text</td><td style="padding: 6px; color: #e0e0e0;">○</td></tr>
+            <tr><td style="padding: 6px;">Logo</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">file</td><td style="padding: 6px; color: #e0e0e0;">○</td></tr>
+            <tr><td style="padding: 6px;">Maintenance</td><td style="padding: 6px; font-family: monospace; font-size: 10px;">boolean</td><td style="padding: 6px; color: #e0e0e0;">○</td></tr>
           </table>
         </div>
       </div>
+      <!-- Type Reference -->
       <div class="card" style="margin-top: 16px;">
         <h3 style="font-size: 14px; font-weight: 600; margin: 0 0 12px;">Tipos de Campo</h3>
         <div style="display: flex; gap: 24px; flex-wrap: wrap;">
@@ -1657,7 +1839,7 @@
           </div>
           <div style="display: flex; align-items: center; gap: 8px;">
             <span style="font-size: 12px; font-weight: 500;">Otros:</span>
-            <code style="font-size: 11px; background: var(--bg); padding: 4px 8px; border-radius: 4px;">boolean, date, url, json</code>
+            <code style="font-size: 11px; background: var(--bg); padding: 4px 8px; border-radius: 4px;">boolean, date, url, json, list</code>
           </div>
         </div>
       </div>
